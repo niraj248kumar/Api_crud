@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:new_api/view/postProduct.dart';
 import 'package:new_api/view/update.dart';
 import 'package:provider/provider.dart';
-
 import '../provider/provider_page.dart';
 
 class Homepage extends StatefulWidget {
@@ -20,8 +19,6 @@ class _HomepageState extends State<Homepage> {
      ProviderApi provider = Provider.of<ProviderApi>(context, listen: false);
      provider.getMultiRequest();
    },);
-
-
   }
   @override
   Widget build(BuildContext context) {
@@ -38,7 +35,6 @@ class _HomepageState extends State<Homepage> {
         ],
         backgroundColor: Colors.greenAccent,
       ),
-
       body: Consumer<ProviderApi>(builder: (context, value, child) {
         if(value.productList.isEmpty){
           return Center(
@@ -80,7 +76,7 @@ class _HomepageState extends State<Homepage> {
                                           onTap: () {
                                             Navigator.push(context, MaterialPageRoute(builder: (context) => UpdateScreen(model:data),));
                                           },
-                                          child: Row(
+                                          child: const Row(
                                             children: [
                                               InkWell(
                                                 child: Text(
@@ -97,7 +93,7 @@ class _HomepageState extends State<Homepage> {
                                           onTap: () {
                                            provider.deleteProduct(data);
                                           },
-                                          child: Row(
+                                          child: const Row(
                                             children: [
                                               Text(
                                                 'Delete',
@@ -121,7 +117,7 @@ class _HomepageState extends State<Homepage> {
         },),
       floatingActionButton: FloatingActionButton.extended(onPressed: () {
        Navigator.push(context, MaterialPageRoute(builder: (context) =>PostProduct(),));
-      }, icon: Icon(Icons.add),label:Text('Post')),
+      }, icon: const Icon(Icons.add),label:Text('Post')),
     );
   }
 }

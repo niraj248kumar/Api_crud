@@ -1,4 +1,3 @@
-
 import 'dart:convert';
 
 ProductModel productModelFromJson(String str) => ProductModel.fromJson(json.decode(str));

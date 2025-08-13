@@ -13,7 +13,6 @@ import '../view/homePage.dart';
 class ProviderApi extends ChangeNotifier {
   TextEditingController emailController = TextEditingController();
   TextEditingController passController = TextEditingController();
-
   TextEditingController nameController = TextEditingController();
   TextEditingController priceController = TextEditingController();
   TextEditingController mobileController = TextEditingController();
@@ -45,7 +44,6 @@ class ProviderApi extends ChangeNotifier {
           await pref.setString('name', userData['name']);
           await pref.setString('mobile', userData['mobile']);
           await pref.setString('email', userData['email']);
-
           Fluttertoast.showToast(msg: 'Login successful!');
 
           Navigator.pushReplacement(
@@ -86,18 +84,18 @@ class ProviderApi extends ChangeNotifier {
 
   Future<List<ProductModel>> getMultiRequest() async {
     try {
-      Uri uri = Uri.parse(
-          "https://shareittofriends.com/demo/flutter/productList.php");
+      Uri uri = Uri.parse("https://shareittofriends.com/demo/flutter/productList.php");
       var response = http.MultipartRequest("POST", uri);
-      response.fields
-          .addAll({"user_login_token": "c2a2f674c6f6a1d2374da1ebfab69adc"});
+      response.fields.addAll({"user_login_token": "c2a2f674c6f6a1d2374da1ebfab69adc"});
       response.headers.addAll({"Content-Type": "application/json"});
       var result = await response.send();
       if (result.statusCode == 200) {
         var data = await result.stream.bytesToString();
         List<dynamic> dataResult = json.decode(data);
         var product = dataResult.map(
-              (e) => ProductModel.fromJson(e),).toList();
+              (e) => ProductModel.fromJson(e),
+            )
+            .toList();
         productList.clear();
         productList.addAll(product);
 
@@ -113,6 +111,7 @@ class ProviderApi extends ChangeNotifier {
       return List<ProductModel>.empty();
     }
   }
+
   Future<void> postMultiRequest(BuildContext context, ProductModel data) async {
     try {
       Uri uri =
@@ -128,7 +127,6 @@ class ProviderApi extends ChangeNotifier {
       // response.headers.addAll({"Content-Type": "application/json"});
       var result = await response.send();
       if (result.statusCode == 200) {
-
         nameController.clear();
         priceController.clear();
         mobileController.clear();
@@ -146,36 +144,37 @@ class ProviderApi extends ChangeNotifier {
     }
   }
 
-  Future<void> deleteProduct(ProductModel delete) async{
-    var request = http.MultipartRequest("POST",Uri.parse("https://shareittofriends.com/demo/flutter/deleteProduct.php"));
+  Future<void> deleteProduct(ProductModel delete) async {
+    var request = http.MultipartRequest(
+        "POST",
+        Uri.parse("https://shareittofriends.com/demo/flutter/deleteProduct.php"));
     request.fields.addAll({
-      "user_login_token":"c2a2f674c6f6a1d2374da1ebfab69adc",
-      "id":delete.id!
+      "user_login_token": "c2a2f674c6f6a1d2374da1ebfab69adc",
+      "id": delete.id!
     });
     var response = await request.send();
-    if(response.statusCode ==200){
-      var data = await response.stream.bytesToString();
+    if (response.statusCode == 200) {
       await getMultiRequest();
       Fluttertoast.showToast(msg: 'Product delete Success');
-    }else{
+    } else {
       Fluttertoast.showToast(msg: 'Product delete fail');
-
     }
   }
-  
-  
 
-  Future<List<ProductModel>> updateMultiRequest(BuildContext context,ProductModel modelProduct, String userId) async {
+  Future<List<ProductModel>> updateMultiRequest(
+      BuildContext context, ProductModel modelProduct, String userId) async {
     try {
-      Uri uri = Uri.parse("https://shareittofriends.com/demo/flutter/editProduct.php");
+      Uri uri = Uri.parse(
+          "https://shareittofriends.com/demo/flutter/editProduct.php");
       var response = http.MultipartRequest("POST", uri);
       response.fields.addAll({
         "user_login_token": "c2a2f674c6f6a1d2374da1ebfab69adc",
         'name': modelProduct.name!,
         'moq': modelProduct.mob!,
         'price': modelProduct.price!,
-        "id":userId,
-        'discounted_price': modelProduct.discountedPrice!});
+        "id": userId,
+        'discounted_price': modelProduct.discountedPrice!
+      });
       var result = await response.send();
       if (result.statusCode == 200) {
         nameController.clear();
@@ -196,5 +195,4 @@ class ProviderApi extends ChangeNotifier {
       return List<ProductModel>.empty();
     }
   }
-
 }

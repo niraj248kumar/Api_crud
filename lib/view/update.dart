@@ -3,7 +3,6 @@ import 'package:new_api/provider/provider_page.dart';
 import 'package:provider/provider.dart';
 
 import '../model/product.dart';
-
 class UpdateScreen extends StatefulWidget {
   final ProductModel model;
   const UpdateScreen({super.key, required this.model});
@@ -37,7 +36,6 @@ class _UpdateScreenState extends State<UpdateScreen> {
   }
   @override
   Widget build(BuildContext context) {
-    var provider = Provider.of<ProviderApi>(context,listen: false);
     return Scaffold(
       appBar: AppBar(title: Center(child: Text('Update Product')),backgroundColor: Colors.blue,),
       body: Padding(

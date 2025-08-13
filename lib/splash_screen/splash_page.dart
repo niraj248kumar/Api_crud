@@ -1,4 +1,3 @@
-
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:new_api/provider/provider_page.dart';
@@ -18,7 +17,6 @@ class _SplashScreenState extends State<SplashScreen> {
     splashScreen();
 
   }
-
 
   Future<void> splashScreen() async{
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {

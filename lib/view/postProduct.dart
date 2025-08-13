@@ -1,16 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:new_api/model/product.dart';
 import 'package:provider/provider.dart';
-
 import '../provider/provider_page.dart';
 
 class PostProduct extends StatefulWidget {
   const PostProduct({super.key});
-
   @override
   State<PostProduct> createState() => _PostProductState();
 }
-
 class _PostProductState extends State<PostProduct> {
   @override
   Widget build(BuildContext context) {
@@ -60,7 +57,6 @@ class _PostProductState extends State<PostProduct> {
                         SnackBar(content: Text("Please fill all fields!")),
                       );
                     } else {
-
                       var productModel = ProductModel(
                         name:provider.nameController.text,
                         price:provider.priceController.text,
